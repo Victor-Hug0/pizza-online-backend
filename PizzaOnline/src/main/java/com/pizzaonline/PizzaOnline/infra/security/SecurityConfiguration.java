@@ -29,6 +29,12 @@ public class SecurityConfiguration {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/pizzas").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/flavors").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/flavors/").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/flavors").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/orders").hasRole("USER")
+                        .requestMatchers(HttpMethod.POST, "/orders").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/orders/cliente").hasRole("USER")
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
                         .anyRequest().authenticated()

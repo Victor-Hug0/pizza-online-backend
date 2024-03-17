@@ -1,5 +1,7 @@
 package com.pizzaonline.PizzaOnline.domain.cliente;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.pizzaonline.PizzaOnline.domain.order.Order;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,6 +28,10 @@ public class Cliente implements UserDetails{
     private String email;
     private String password;
     private UserRole role;
+
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<Order> orders;
 
     public Cliente(String name, String phoneNumber, String email, String password, UserRole role) {
         this.name = name;
